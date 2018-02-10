@@ -10,29 +10,40 @@ var express = require('express')
 , app = express()
 , template = require('jade').compileFile(__dirname + '/source/templates/homepage.jade')
 
+app.use(logger('dev'))
+app.use(express.static(__dirname + '/static'))
+
 mongoose.connection.on('error', (err) => {
    console.error(err);
    console.log('%s MongoDB connection error. Please make sure MongoDB is running.');
    process.exit();
  });
 mongoose.connect('mongodb://localhost/cryptodata');
- 
-const requestHandler = (request, response) => {
-   console.log(request.url)
-   OrderBookItem.find({}, function(err, result) {
-      console.log("success");
-      if(err) throw err;
-      result.forEach(function(r){
-         console.log(r);
-      });
 
-   response.end('Hello Node.js Server!')
-   });
+
+app.get('/', function (req, res, next) {
+   try {
+      /*OrderBookItem.find({}, function(err, result) {
+         console.log("success");
+         if(err) throw err;
+
+      response.end('Hello Node.js Server!')
+      });*/
+     var html = template({ pageTitle: 'Home', youAreUsingJade: '1' })
+     res.send(html)
+   } catch (e) {
+     next(e)
+   }
+ })
+ 
+const requestHandler = (req, res) => {
+   console.log(req.url)
+
+   var html = template({ title: 'Home' });
+   res.send(html);
 }
 
-const server = http.createServer(requestHandler)
-
-server.listen(port, (err) => {
+app.listen(port, (err) => {
    if (err) {
       return console.log('something bad happened', err)
    }

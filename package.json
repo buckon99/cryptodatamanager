@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/jackbtroop62/cryptodatamanager/issues"
   },
-  "homepage": "https://github.com/jackbtroop62/cryptodatamanager"
+  "homepage": "https://github.com/jackbtroop62/cryptodatamanager",
+  "dependencies": {
+    "mongodb": "^3.0.2"
+  }
 }

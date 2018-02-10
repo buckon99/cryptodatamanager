@@ -5,6 +5,10 @@ const http = require('http');
 const mongoose = require('mongoose');
 const port = 8080;
 const OrderBookItem = require('./models/OrderBookItem');
+var express = require('express')
+, logger = require('morgan')
+, app = express()
+, template = require('jade').compileFile(__dirname + '/source/templates/homepage.jade')
 
 mongoose.connection.on('error', (err) => {
    console.error(err);

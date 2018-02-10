@@ -29,7 +29,11 @@
   },
   "homepage": "https://github.com/jackbtroop62/cryptodatamanager",
   "dependencies": {
+    "express": "^4.16.2",
+    "jade": "^1.11.0",
+    "jquery": "^3.3.1",
     "mongodb": "^3.0.2",
-    "mongoose": "^5.0.4"
+    "mongoose": "^5.0.4",
+    "morgan": "^1.9.0"
   }
 }

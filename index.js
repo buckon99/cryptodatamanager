@@ -29,8 +29,11 @@ app.get('/', function (req, res, next) {
 
       response.end('Hello Node.js Server!')
       });*/
-     var html = template({ pageTitle: 'Home', youAreUsingJade: '1' })
-     res.send(html)
+     var q = OrderBookItem.find().sort({'updatedAt': -1})
+     .limit(20).exec(function(error, results){
+      var html = template({ pageTitle: 'Home', youAreUsingJade: '1', items: results})
+      res.send(html)
+     });
    } catch (e) {
      next(e)
    }

@@ -12,3 +12,7 @@ html(lang="en")
             p Get on it!
             p Get on it!
             p Get on it!
+         ul
+            - items.forEach(function(item) {
+               li #{item.order_type} (#{item.price})
+            - })

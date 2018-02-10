@@ -1,7 +1,16 @@
-var MongoClient = require('mongodb').MongoClient;
-var MongoUrl = "mongodb://localhost:27017/";
+var MongoClient = require('mongodb').MongoClient
+, assert = require('assert');
+var url = "mongodb://localhost:27017/cryptodata";
 const http = require('http');
 const port = 80;
+
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, db) {
+   assert.equal(null, err);
+   console.log("Connected successfully to server");
+
+   db.close();
+});
 
 const requestHandler = (request, response) => {
    console.log(request.url)
@@ -16,14 +25,13 @@ server.listen(port, (err) => {
    }
 
    console.log(`server is listening on ${port}`)
-   MongoClient.connect(MongoUrl, function(err, db) {
+   MongoClient.connect(url, function(err, db) {
       if(err) throw err;
-      var dbo = db.db("cryptodatacollector");
-      dbo.collection("orderbookitem").find({}, function(err, results) {
+      var dbo = db.db("cryptodata");
+      dbo.collection("orderbookitems").find({}).toArray(function(err, result) {
          if(err) throw err;
-         for(var i = 0; i < results.length; i++){
-            console.log(results[i]);
-         }
+         console.log(result);
+         db.close();
       });
    });
 })

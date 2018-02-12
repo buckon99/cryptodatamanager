@@ -2,17 +2,22 @@ doctype html
 html(lang="en")
    head
       title= pageTitle
+      link(rel='stylesheet',type='text/css',href='/css/bootstrap.min.css')
    body
-      h1 Jade - node template engine
+      h1 Crypto Data Collector
       #container
-         - if (youAreUsingJade)
-            p You are amazing
-         - else
-            p Get on it!
-            p Get on it!
-            p Get on it!
-            p Get on it!
-         ul
-            - items.forEach(function(item) {
-               li #{item.order_type} (#{item.price})
-            - })
+         .row
+            .col-md-6.col-md-offset-3
+               table.table
+                  thead
+                     tr
+                        th Product ID
+                        th Order Type
+                        th Price
+                  tbody
+                     - items.forEach(function(item) {
+                        tr 
+                           td #{item.product_id}
+                           td #{item.order_type}
+                           td #{item.price}
+                     - })

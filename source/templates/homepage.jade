@@ -4,11 +4,12 @@ html(lang="en")
       title= pageTitle
       link(rel='stylesheet',type='text/css',href='/css/bootstrap.min.css')
    body
-      h1 Crypto Data Collector
+      .row
+         h1.col-md-offset-3 Crypto Data Collector
       #container
          .row
             .col-md-6.col-md-offset-3
-               table.table
+               table.table.table-striped.table-dark
                   thead
                      tr
                         th Product ID
@@ -21,3 +22,5 @@ html(lang="en")
                            td #{item.order_type}
                            td #{item.price}
                      - })
+               - for (var i = 0; i < 10 /*add page count here*/; i++)
+                  a(href='#') #{i} 

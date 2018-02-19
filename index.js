@@ -12,7 +12,7 @@ var express = require('express')
 
 app.use(logger('dev'))
 app.use(express.static(__dirname + '/static'))
-
+app.use('/chartjs', express.static(__dirname + '/node_modules/chartjs/'));
 mongoose.connection.on('error', (err) => {
    console.error(err);
    console.log('%s MongoDB connection error. Please make sure MongoDB is running.');
@@ -29,10 +29,32 @@ app.get('/', function (req, res, next) {
 
       response.end('Hello Node.js Server!')
       });*/
-     var q = OrderBookItem.find().sort({'updatedAt': -1})
-     .limit(20).exec(function(error, results){
-      var html = template({ pageTitle: 'Home', youAreUsingJade: '1', items: results})
-      res.send(html)
+     var q = OrderBookItem.find({'order_type': 'sell'}).sort({'price': +1}).exec(function(error, results){
+      var labels = [];
+      var data = [];
+      var lowest = results[0].price;
+      labels.push(lowest);
+      data.push(0);
+      for(var i = 1; i < 10; i++){
+        labels.push(lowest + i*.01*lowest)
+        data.push(0);
+      }
+      var sent = 0;
+      var i = 0;
+      results.forEach(function(item){
+        if(item.price <= labels[i])
+          data[i] += item.amount
+        else if(i < 9){
+          data[++i] += item.amount;
+        }else if(sent == 0)
+        {
+          for(i = 1; i<10; i++)
+            data[i] += data[i-1];
+          var html = template({ pageTitle: 'Home', youAreUsingJade: '1', label: labels, values: data})
+          res.send(html);
+          sent = 1;
+        }
+      });
      });
    } catch (e) {
      next(e)

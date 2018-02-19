@@ -3,24 +3,24 @@ html(lang="en")
    head
       title= pageTitle
       link(rel='stylesheet',type='text/css',href='/css/bootstrap.min.css')
+      script(type="text/javascript" src="http://www.chartjs.org/dist/2.7.1/Chart.bundle.js")
+      script(type="text/javascript", src="http://www.chartjs.org/samples/latest/utils.js")
+      script(type="text/javascript" src="/js/chart.js")
    body
       .row
          h1.col-md-offset-3 Crypto Data Collector
       #container
-         .row
+        .row
             .col-md-6.col-md-offset-3
-               table.table.table-striped.table-dark
-                  thead
-                     tr
-                        th Product ID
-                        th Order Type
+                table.table.table-striped.table-dark
+                    thead
+                    tr
                         th Price
-                  tbody
-                     - items.forEach(function(item) {
+                    tbody
+                    - label.forEach(function(item) {
                         tr 
-                           td #{item.product_id}
-                           td #{item.order_type}
-                           td #{item.price}
-                     - })
-               - for (var i = 0; i < 10 /*add page count here*/; i++)
-                  a(href='#') #{i} 
+                            td #{item}
+                    - })
+        canvas#canvas
+        script.
+            setup([#{label}], [#{values}])

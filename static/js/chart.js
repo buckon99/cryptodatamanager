@@ -5,7 +5,7 @@ var MONTHS = label;
 		data: {
 			labels: label,
 			datasets: [{
-				label: "My First dataset",
+				label: "Sell Orders",
 				backgroundColor: 'rgba(244, 125, 66, 1)',
 				borderColor: 'rgba(244, 125, 66, 1)',
 				steppedLine: true,
@@ -32,7 +32,7 @@ var MONTHS = label;
 					display: true,
 					scaleLabel: {
 						display: true,
-						labelString: 'Month'
+						labelString: 'Price'
 					}
 				}],
 				yAxes: [{
